@@ -1,0 +1,22 @@
+plugins {
+    id 'application'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.20'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation('org.jetbrains.kotlin:kotlin-test-junit5:1.4.20')
+}
+
+application {
+    mainClass = 'com.grahamedgecombe.advent2020.AdventKt'
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
