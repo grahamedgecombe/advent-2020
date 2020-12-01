@@ -18,4 +18,18 @@ object Day1 : Puzzle<List<Int>>(1) {
 
         return null
     }
+
+    override fun solvePart2(input: List<Int>): String? {
+        for ((i, a) in input.withIndex()) {
+            for ((j, b) in input.slice(0 until i).withIndex()) {
+                for (c in input.slice(0 until j)) {
+                    if (a + b + c == 2020) {
+                        return (a * b * c).toString()
+                    }
+                }
+            }
+        }
+
+        return null
+    }
 }
