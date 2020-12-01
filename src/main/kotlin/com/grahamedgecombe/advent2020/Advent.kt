@@ -1,7 +1,9 @@
 package com.grahamedgecombe.advent2020
 
+import com.grahamedgecombe.advent2020.day1.Day1
+
 fun main() {
-    val puzzles = listOf<Puzzle<*>>()
+    val puzzles = listOf<Puzzle<*>>(Day1)
 
     for (puzzle in puzzles) {
         solve(puzzle)
