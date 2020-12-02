@@ -5,7 +5,7 @@ import com.grahamedgecombe.advent2020.Puzzle
 object Day2 : Puzzle<List<Day2.Entry>>(2) {
     data class Entry(val min: Int, val max: Int, val char: Char, val password: String) {
         fun isValidPart1(): Boolean {
-            val count = password.filter { it == char }.count()
+            val count = password.count { it == char }
             return count in min..max
         }
 
@@ -36,10 +36,10 @@ object Day2 : Puzzle<List<Day2.Entry>>(2) {
     }
 
     override fun solvePart1(input: List<Entry>): String? {
-        return input.filter(Entry::isValidPart1).count().toString()
+        return input.count(Entry::isValidPart1).toString()
     }
 
     override fun solvePart2(input: List<Entry>): String? {
-        return input.filter(Entry::isValidPart2).count().toString()
+        return input.count(Entry::isValidPart2).toString()
     }
 }
