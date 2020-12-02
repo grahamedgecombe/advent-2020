@@ -12,7 +12,7 @@ object Day2 : Puzzle<List<Day2.Entry>>(2) {
         fun isValidPart2(): Boolean {
             val char1 = password[min - 1]
             val char2 = password[max - 1]
-            return (char1 == char && char2 != char) || (char1 != char && char2 == char)
+            return (char1 == char) xor (char2 == char)
         }
 
         companion object {
