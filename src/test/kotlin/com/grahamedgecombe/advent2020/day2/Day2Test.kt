@@ -15,4 +15,10 @@ object Day2Test {
         assertEquals("2", Day2.solvePart1(INPUT))
         assertEquals("458", Day2.solvePart1(Day2.parse()))
     }
+
+    @Test
+    fun testPart2() {
+        assertEquals("1", Day2.solvePart2(INPUT))
+        assertEquals("342", Day2.solvePart2(Day2.parse()))
+    }
 }

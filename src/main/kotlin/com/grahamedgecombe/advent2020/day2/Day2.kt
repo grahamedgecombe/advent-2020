@@ -9,6 +9,12 @@ object Day2 : Puzzle<List<Day2.Entry>>(2) {
             return count in min..max
         }
 
+        fun isValidPart2(): Boolean {
+            val char1 = password[min - 1]
+            val char2 = password[max - 1]
+            return (char1 == char && char2 != char) || (char1 != char && char2 == char)
+        }
+
         companion object {
             private val REGEX = Regex("(\\d+)-(\\d+) (\\w): (\\w+)")
 
@@ -31,5 +37,9 @@ object Day2 : Puzzle<List<Day2.Entry>>(2) {
 
     override fun solvePart1(input: List<Entry>): String? {
         return input.filter(Entry::isValidPart1).count().toString()
+    }
+
+    override fun solvePart2(input: List<Entry>): String? {
+        return input.filter(Entry::isValidPart2).count().toString()
     }
 }
