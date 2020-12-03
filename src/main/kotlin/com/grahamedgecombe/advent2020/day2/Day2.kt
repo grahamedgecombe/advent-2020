@@ -35,11 +35,11 @@ object Day2 : Puzzle<List<Day2.Entry>>(2) {
         return input.map(Entry.Companion::parse).toList()
     }
 
-    override fun solvePart1(input: List<Entry>): String? {
+    override fun solvePart1(input: List<Entry>): String {
         return input.count(Entry::isValidPart1).toString()
     }
 
-    override fun solvePart2(input: List<Entry>): String? {
+    override fun solvePart2(input: List<Entry>): String {
         return input.count(Entry::isValidPart2).toString()
     }
 }
