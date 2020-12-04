@@ -8,8 +8,57 @@ object Day4 : Puzzle<List<Day4.Passport>>(4) {
             return fields.keys.containsAll(REQUIRED_FIELDS)
         }
 
+        fun isValidPart2(): Boolean {
+            if (!isValidPart1()) {
+                return false
+            }
+
+            for ((key, value) in fields) {
+                if (!isFieldValid(key, value)) {
+                    return false
+                }
+            }
+
+            return true
+        }
+
         companion object {
             private val REQUIRED_FIELDS = listOf("byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid")
+            private val HEIGHT_REGEX = Regex("(\\d+)(cm|in)")
+            private val COLOR_REGEX = Regex("#[\\da-f]{6}")
+            private val EYE_COLORS = setOf("amb", "blu", "brn", "gry", "grn", "hzl", "oth")
+            private val ID_REGEX = Regex("\\d{9}")
+
+            fun isFieldValid(key: String, value: String): Boolean {
+                return when (key) {
+                    "byr" -> isYearValid(value, 1920..2002)
+                    "iyr" -> isYearValid(value, 2010..2020)
+                    "eyr" -> isYearValid(value, 2020..2030)
+                    "hgt" -> isHeightValid(value, cmRange = 150..193, inRange = 59..76)
+                    "hcl" -> COLOR_REGEX.matches(value)
+                    "ecl" -> value in EYE_COLORS
+                    "pid" -> ID_REGEX.matches(value)
+                    else -> true
+                }
+            }
+
+            private fun isYearValid(value: String, range: IntRange): Boolean {
+                val intValue = value.toIntOrNull() ?: return false
+                return intValue in range
+            }
+
+            private fun isHeightValid(value: String, cmRange: IntRange, inRange: IntRange): Boolean {
+                val match = HEIGHT_REGEX.matchEntire(value) ?: return false
+
+                val intValue = match.groupValues[1].toIntOrNull() ?: return false
+                val unit = match.groupValues[2]
+
+                return when (unit) {
+                    "cm" -> intValue in cmRange
+                    "in" -> intValue in inRange
+                    else -> false
+                }
+            }
         }
     }
 
@@ -39,5 +88,9 @@ object Day4 : Puzzle<List<Day4.Passport>>(4) {
 
     override fun solvePart1(input: List<Passport>): String {
         return input.count(Passport::isValidPart1).toString()
+    }
+
+    override fun solvePart2(input: List<Passport>): String {
+        return input.count(Passport::isValidPart2).toString()
     }
 }
