@@ -2,20 +2,20 @@ package com.grahamedgecombe.advent2020.day5
 
 import com.grahamedgecombe.advent2020.Puzzle
 
-object Day5 : Puzzle<List<String>>(5) {
+object Day5 : Puzzle<List<Int>>(5) {
     private const val ROWS = 128
     private const val COLUMNS = 8
 
-    override fun parse(input: Sequence<String>): List<String> {
-        return input.toList()
+    override fun parse(input: Sequence<String>): List<Int> {
+        return input.map(::getSeat).toList()
     }
 
-    override fun solvePart1(input: List<String>): String? {
-        return input.map(::getSeat).maxOrNull()?.toString()
+    override fun solvePart1(input: List<Int>): String? {
+        return input.maxOrNull()?.toString()
     }
 
-    override fun solvePart2(input: List<String>): String? {
-        val seats = input.map(::getSeat).toSet()
+    override fun solvePart2(input: List<Int>): String? {
+        val seats = input.toSet()
 
         for (seat in 1 until (ROWS * COLUMNS - 1)) { // exclude the first and last elements
             if (!seats.contains(seat) && seats.contains(seat - 1) && seats.contains(seat + 1)) {
