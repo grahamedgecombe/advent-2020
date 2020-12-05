@@ -75,6 +75,7 @@ object Day4 : Puzzle<List<Day4.Passport>>(4) {
 
             for (field in line.split(" ")) {
                 val parts = field.split(":", limit = 2)
+                require(parts.size == 2)
                 fields[parts[0]] = parts[1]
             }
         }
