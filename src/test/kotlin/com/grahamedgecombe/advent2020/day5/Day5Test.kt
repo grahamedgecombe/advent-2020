@@ -14,4 +14,9 @@ object Day5Test {
         assertEquals(820, Day5.getSeat("BBFFBBFRLL"))
         assertEquals("883", Day5.solvePart1(PROD_INPUT))
     }
+
+    @Test
+    fun testPart2() {
+        assertEquals("532", Day5.solvePart2(PROD_INPUT))
+    }
 }

@@ -14,6 +14,18 @@ object Day5 : Puzzle<List<String>>(5) {
         return input.map(::getSeat).maxOrNull()?.toString()
     }
 
+    override fun solvePart2(input: List<String>): String? {
+        val seats = input.map(::getSeat).toSet()
+
+        for (seat in 1 until (ROWS * COLUMNS - 1)) { // exclude the first and last elements
+            if (!seats.contains(seat) && seats.contains(seat - 1) && seats.contains(seat + 1)) {
+                return seat.toString()
+            }
+        }
+
+        return null
+    }
+
     fun getSeat(pass: String): Int {
         val (rows, columns) = getSeat(pass, 0 until ROWS, 0 until COLUMNS)
         return rows.single() * COLUMNS + columns.single()
