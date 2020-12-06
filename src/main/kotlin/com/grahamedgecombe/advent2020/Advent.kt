@@ -5,9 +5,10 @@ import com.grahamedgecombe.advent2020.day2.Day2
 import com.grahamedgecombe.advent2020.day3.Day3
 import com.grahamedgecombe.advent2020.day4.Day4
 import com.grahamedgecombe.advent2020.day5.Day5
+import com.grahamedgecombe.advent2020.day6.Day6
 
 fun main() {
-    val puzzles = listOf<Puzzle<*>>(Day1, Day2, Day3, Day4, Day5)
+    val puzzles = listOf<Puzzle<*>>(Day1, Day2, Day3, Day4, Day5, Day6)
 
     for (puzzle in puzzles) {
         solve(puzzle)
