@@ -7,6 +7,10 @@ object Day6 : Puzzle<List<Day6.Group>>(6) {
         fun unionSize(): Int {
             return people.reduce { a, b -> a union b }.size
         }
+
+        fun intersectionSize(): Int {
+            return people.reduce { a, b -> a intersect b }.size
+        }
     }
 
     override fun parse(input: Sequence<String>): List<Group> {
@@ -32,5 +36,9 @@ object Day6 : Puzzle<List<Day6.Group>>(6) {
 
     override fun solvePart1(input: List<Group>): String {
         return input.map(Group::unionSize).sum().toString()
+    }
+
+    override fun solvePart2(input: List<Group>): String {
+        return input.map(Group::intersectionSize).sum().toString()
     }
 }
