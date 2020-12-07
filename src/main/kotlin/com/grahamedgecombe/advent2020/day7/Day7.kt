@@ -6,6 +6,7 @@ object Day7 : Puzzle<Day7.RuleSet>(7) {
     private const val SHINY_GOLD = "shiny gold"
 
     class RuleSet(rules: List<Rule>) {
+        private val rules = rules.associateBy(Rule::color)
         private val rulesContaining = mutableMapOf<String, MutableSet<String>>()
 
         init {
@@ -32,6 +33,19 @@ object Day7 : Puzzle<Day7.RuleSet>(7) {
 
         private fun getRulesContaining(color: String): Set<String> {
             return rulesContaining.getOrDefault(color, emptySet())
+        }
+
+        fun countChildren(color: String): Int {
+            var count = 0
+
+            val rule = rules[color]
+            if (rule != null) {
+                for ((childColor, quantity) in rule.children) {
+                    count += (countChildren(childColor) + 1) * quantity
+                }
+            }
+
+            return count
         }
 
         companion object {
@@ -73,5 +87,9 @@ object Day7 : Puzzle<Day7.RuleSet>(7) {
 
     override fun solvePart1(input: RuleSet): String {
         return input.countParents(SHINY_GOLD).toString()
+    }
+
+    override fun solvePart2(input: RuleSet): String {
+        return input.countChildren(SHINY_GOLD).toString()
     }
 }
