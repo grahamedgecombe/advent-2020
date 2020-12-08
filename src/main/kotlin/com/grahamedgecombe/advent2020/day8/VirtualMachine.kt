@@ -12,6 +12,8 @@ class VirtualMachine(private val program: Program) {
             Opcode.NOP -> { /* empty */ }
         }
 
+        check(pc >= 0)
+
         return pc < program.instructions.size
     }
 }
