@@ -69,9 +69,9 @@ object Day7 : Puzzle<Day7.RuleSet>(7) {
                 val map = if (children == "no other bags") {
                     emptyMap()
                 } else {
-                    CHILD_REGEX.findAll(children).associate { match ->
-                        val quantity = match.groupValues[1].toInt()
-                        val childColor = match.groupValues[2]
+                    CHILD_REGEX.findAll(children).associate { childMatch ->
+                        val quantity = childMatch.groupValues[1].toInt()
+                        val childColor = childMatch.groupValues[2]
                         return@associate Pair(childColor, quantity)
                     }
                 }
