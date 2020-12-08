@@ -11,16 +11,54 @@ object Day8 : Puzzle<Program>(8) {
         return runUntilDuplicate(input).toString()
     }
 
-    private fun runUntilDuplicate(program: Program): Int {
-        val vm = VirtualMachine(program)
+    override fun solvePart2(input: Program): String {
+        return patchAndRunUntilHalt(input).toString()
+    }
+
+    private enum class Result {
+        InfiniteLoop,
+        Halt
+    }
+
+    private fun run(vm: VirtualMachine): Result {
         val visited = mutableSetOf<Int>()
 
         while (true) {
             if (!visited.add(vm.pc)) {
-                return vm.acc
+                return Result.InfiniteLoop
             }
 
-            vm.step()
+            if (!vm.step()) {
+                return Result.Halt
+            }
         }
+    }
+
+    private fun runUntilDuplicate(program: Program): Int? {
+        val vm = VirtualMachine(program)
+        if (run(vm) == Result.InfiniteLoop) {
+            return vm.acc
+        }
+        return null
+    }
+
+    private fun patchAndRunUntilHalt(program: Program): Int? {
+        for ((i, insn) in program.instructions.withIndex()) {
+            val opcode = when (insn.opcode) {
+                Opcode.JMP -> Opcode.NOP
+                Opcode.NOP -> Opcode.JMP
+                else -> continue
+            }
+
+            val patched = program.instructions.toMutableList()
+            patched[i] = Instruction(opcode, insn.argument)
+
+            val vm = VirtualMachine(Program(patched))
+            if (run(vm) == Result.Halt) {
+                return vm.acc
+            }
+        }
+
+        return null
     }
 }
