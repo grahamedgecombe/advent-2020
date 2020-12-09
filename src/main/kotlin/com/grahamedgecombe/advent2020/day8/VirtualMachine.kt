@@ -9,7 +9,7 @@ class VirtualMachine(private val program: Program) {
         when (insn.opcode) {
             Opcode.ACC -> acc += insn.argument
             Opcode.JMP -> pc += insn.argument - 1
-            Opcode.NOP -> { /* empty */ }
+            Opcode.NOP -> Unit
         }
 
         check(pc >= 0)
