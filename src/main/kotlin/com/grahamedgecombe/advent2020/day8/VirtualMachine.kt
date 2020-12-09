@@ -12,8 +12,11 @@ class VirtualMachine(private val program: Program) {
             Opcode.NOP -> Unit
         }
 
-        check(pc >= 0)
+        if (pc == program.instructions.size) {
+            return false
+        }
 
-        return pc < program.instructions.size
+        check(pc >= 0 && pc < program.instructions.size)
+        return true
     }
 }
