@@ -33,4 +33,10 @@ object Day9Test {
         assertEquals(127, Day9.getFirstInvalidNumber(TEST_INPUT, 5))
         assertEquals("144381670", Day9.solvePart1(PROD_INPUT))
     }
+
+    @Test
+    fun testPart2() {
+        assertEquals(62, Day9.getWeakness(TEST_INPUT, 127))
+        assertEquals("20532569", Day9.solvePart2(PROD_INPUT))
+    }
 }
