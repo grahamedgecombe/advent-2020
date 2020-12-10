@@ -1,6 +1,7 @@
 package com.grahamedgecombe.advent2020.day9
 
 import com.grahamedgecombe.advent2020.Puzzle
+import com.grahamedgecombe.advent2020.UnsolvableException
 import kotlin.math.max
 import kotlin.math.min
 
@@ -11,13 +12,13 @@ object Day9 : Puzzle<List<Long>>(9) {
         return input.map(String::toLong).toList()
     }
 
-    override fun solvePart1(input: List<Long>): String? {
-        return getFirstInvalidNumber(input, PREAMBLE)?.toString()
+    override fun solvePart1(input: List<Long>): String {
+        return getFirstInvalidNumber(input, PREAMBLE)?.toString() ?: throw UnsolvableException()
     }
 
-    override fun solvePart2(input: List<Long>): String? {
-        val invalidNumber = getFirstInvalidNumber(input, PREAMBLE) ?: return null
-        return getWeakness(input, invalidNumber)?.toString()
+    override fun solvePart2(input: List<Long>): String {
+        val invalidNumber = getFirstInvalidNumber(input, PREAMBLE) ?: throw UnsolvableException()
+        return getWeakness(input, invalidNumber)?.toString() ?: throw UnsolvableException()
     }
 
     fun getFirstInvalidNumber(numbers: List<Long>, preamble: Int): Long? {

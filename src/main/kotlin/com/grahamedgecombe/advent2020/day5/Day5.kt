@@ -1,6 +1,7 @@
 package com.grahamedgecombe.advent2020.day5
 
 import com.grahamedgecombe.advent2020.Puzzle
+import com.grahamedgecombe.advent2020.UnsolvableException
 
 object Day5 : Puzzle<List<Int>>(5) {
     private const val ROWS = 128
@@ -10,11 +11,11 @@ object Day5 : Puzzle<List<Int>>(5) {
         return input.map(::getSeat).toList()
     }
 
-    override fun solvePart1(input: List<Int>): String? {
-        return input.maxOrNull()?.toString()
+    override fun solvePart1(input: List<Int>): String {
+        return input.maxOrNull()?.toString() ?: throw UnsolvableException()
     }
 
-    override fun solvePart2(input: List<Int>): String? {
+    override fun solvePart2(input: List<Int>): String {
         val seats = input.toSet()
 
         for (seat in 1 until (ROWS * COLUMNS - 1)) { // exclude the first and last elements
@@ -23,7 +24,7 @@ object Day5 : Puzzle<List<Int>>(5) {
             }
         }
 
-        return null
+        throw UnsolvableException()
     }
 
     fun getSeat(pass: String): Int {

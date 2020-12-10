@@ -23,9 +23,7 @@ private fun <T> solve(puzzle: Puzzle<T>) {
     val input = puzzle.parse()
 
     val solutionPart1 = puzzle.solvePart1(input)
-    if (solutionPart1 != null) {
-        println("Day ${puzzle.number} Part 1: $solutionPart1")
-    }
+    println("Day ${puzzle.number} Part 1: $solutionPart1")
 
     val solutionPart2 = puzzle.solvePart2(input)
     if (solutionPart2 != null) {

@@ -1,6 +1,7 @@
 package com.grahamedgecombe.advent2020.day10
 
 import com.grahamedgecombe.advent2020.Puzzle
+import com.grahamedgecombe.advent2020.UnsolvableException
 
 object Day10 : Puzzle<Set<Int>>(10) {
     override fun parse(input: Sequence<String>): Set<Int> {
@@ -15,8 +16,8 @@ object Day10 : Puzzle<Set<Int>>(10) {
         return countCombinations(input).toString()
     }
 
-    fun countDifferences(bag: Set<Int>): Int? {
-        val max = bag.maxOrNull() ?: return null
+    fun countDifferences(bag: Set<Int>): Int {
+        val max = bag.maxOrNull() ?: throw UnsolvableException()
         val chain = bag.plus(0).plus(max + 3).sorted()
 
         var ones = 0
@@ -26,14 +27,14 @@ object Day10 : Puzzle<Set<Int>>(10) {
             when {
                 diff == 1 -> ones++
                 diff == 3 -> threes++
-                diff != 2 -> return null
+                diff != 2 -> throw UnsolvableException()
             }
         }
         return ones * threes
     }
 
-    fun countCombinations(bag: Set<Int>): Long? {
-        val max = bag.maxOrNull() ?: return null
+    fun countCombinations(bag: Set<Int>): Long {
+        val max = bag.maxOrNull() ?: throw UnsolvableException()
         return countCombinations(max + 3, bag, mutableMapOf())
     }
 
