@@ -36,6 +36,36 @@ object Day11 : Puzzle<Day11.Grid>(11) {
             return count
         }
 
+        private fun countNeighboursPart2(x: Int, y: Int): Int {
+            var count = 0
+
+            for (dy in -1..1) {
+                for (dx in -1..1) {
+                    if (dx == 0 && dy == 0) {
+                        continue
+                    }
+
+                    var rayX = x
+                    var rayY = y
+                    do {
+                        rayX += dx
+                        rayY += dy
+
+                        if (!withinBounds(rayX, rayY)) {
+                            break
+                        }
+
+                        val state = get(rayX, rayY)
+                        if (state == OCCUPIED) {
+                            count++
+                        }
+                    } while (state == FLOOR)
+                }
+            }
+
+            return count
+        }
+
         private fun next(countNeighbours: (Int, Int) -> Int, threshold: Int): Grid {
             val nextChars = CharArray(chars.size)
             var index = 0
@@ -60,6 +90,10 @@ object Day11 : Puzzle<Day11.Grid>(11) {
 
         fun nextPart1(): Grid {
             return next(this::countNeighboursPart1, 4)
+        }
+
+        fun nextPart2(): Grid {
+            return next(this::countNeighboursPart2, 5)
         }
 
         fun countOccupied(): Int {
@@ -135,6 +169,10 @@ object Day11 : Puzzle<Day11.Grid>(11) {
 
     override fun solvePart1(input: Grid): String {
         return countOccupiedAtFixedPoint(input) { it.nextPart1() }.toString()
+    }
+
+    override fun solvePart2(input: Grid): String {
+        return countOccupiedAtFixedPoint(input) { it.nextPart2() }.toString()
     }
 
     private fun countOccupiedAtFixedPoint(input: Grid, next: (Grid) -> Grid): Int {
