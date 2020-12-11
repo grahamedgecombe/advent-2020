@@ -1,6 +1,5 @@
 package com.grahamedgecombe.advent2020.day3
 
-import com.grahamedgecombe.advent2020.day3.Day3
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
