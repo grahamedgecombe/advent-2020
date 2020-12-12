@@ -167,12 +167,12 @@ object Day11 : Puzzle<Day11.Grid>(11) {
         return Grid.parse(input.toList())
     }
 
-    override fun solvePart1(input: Grid): String {
-        return countOccupiedAtFixedPoint(input) { it.nextPart1() }.toString()
+    override fun solvePart1(input: Grid): Int {
+        return countOccupiedAtFixedPoint(input) { it.nextPart1() }
     }
 
-    override fun solvePart2(input: Grid): String {
-        return countOccupiedAtFixedPoint(input) { it.nextPart2() }.toString()
+    override fun solvePart2(input: Grid): Int {
+        return countOccupiedAtFixedPoint(input) { it.nextPart2() }
     }
 
     private fun countOccupiedAtFixedPoint(input: Grid, next: (Grid) -> Grid): Int {

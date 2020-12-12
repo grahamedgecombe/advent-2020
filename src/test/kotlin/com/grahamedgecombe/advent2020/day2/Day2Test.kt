@@ -13,13 +13,13 @@ object Day2Test {
 
     @Test
     fun testPart1() {
-        assertEquals("2", Day2.solvePart1(TEST_INPUT))
-        assertEquals("458", Day2.solvePart1(PROD_INPUT))
+        assertEquals(2, Day2.solvePart1(TEST_INPUT))
+        assertEquals(458, Day2.solvePart1(PROD_INPUT))
     }
 
     @Test
     fun testPart2() {
-        assertEquals("1", Day2.solvePart2(TEST_INPUT))
-        assertEquals("342", Day2.solvePart2(PROD_INPUT))
+        assertEquals(1, Day2.solvePart2(TEST_INPUT))
+        assertEquals(342, Day2.solvePart2(PROD_INPUT))
     }
 }

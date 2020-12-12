@@ -56,13 +56,13 @@ object Day10Test {
     fun testPart1() {
         assertEquals(35, Day10.countDifferences(TEST_INPUT_1))
         assertEquals(220, Day10.countDifferences(TEST_INPUT_2))
-        assertEquals("2432", Day10.solvePart1(PROD_INPUT))
+        assertEquals(2432, Day10.solvePart1(PROD_INPUT))
     }
 
     @Test
     fun testPart2() {
         assertEquals(8, Day10.countCombinations(TEST_INPUT_1))
         assertEquals(19208, Day10.countCombinations(TEST_INPUT_2))
-        assertEquals("453551299002368", Day10.solvePart2(PROD_INPUT))
+        assertEquals(453551299002368, Day10.solvePart2(PROD_INPUT))
     }
 }

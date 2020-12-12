@@ -25,19 +25,19 @@ object Day6Test {
 
     @Test
     fun testPart1() {
-        assertEquals("6", Day6.solvePart1(Day6.parse(sequenceOf(
+        assertEquals(6, Day6.solvePart1(Day6.parse(sequenceOf(
             "abcx",
             "abcy",
             "abcz"
         ))))
 
-        assertEquals("11", Day6.solvePart1(TEST_INPUT))
-        assertEquals("6259", Day6.solvePart1(PROD_INPUT))
+        assertEquals(11, Day6.solvePart1(TEST_INPUT))
+        assertEquals(6259, Day6.solvePart1(PROD_INPUT))
     }
 
     @Test
     fun testPart2() {
-        assertEquals("6", Day6.solvePart2(TEST_INPUT))
-        assertEquals("3178", Day6.solvePart2(PROD_INPUT))
+        assertEquals(6, Day6.solvePart2(TEST_INPUT))
+        assertEquals(3178, Day6.solvePart2(PROD_INPUT))
     }
 }

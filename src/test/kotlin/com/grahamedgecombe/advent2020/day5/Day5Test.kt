@@ -12,11 +12,11 @@ object Day5Test {
         assertEquals(567, Day5.getSeat("BFFFBBFRRR"))
         assertEquals(119, Day5.getSeat("FFFBBBFRRR"))
         assertEquals(820, Day5.getSeat("BBFFBBFRLL"))
-        assertEquals("883", Day5.solvePart1(PROD_INPUT))
+        assertEquals(883, Day5.solvePart1(PROD_INPUT))
     }
 
     @Test
     fun testPart2() {
-        assertEquals("532", Day5.solvePart2(PROD_INPUT))
+        assertEquals(532, Day5.solvePart2(PROD_INPUT))
     }
 }

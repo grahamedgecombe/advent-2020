@@ -1,18 +1,19 @@
 package com.grahamedgecombe.advent2020.day8
 
 import com.grahamedgecombe.advent2020.Puzzle
+import com.grahamedgecombe.advent2020.UnsolvableException
 
 object Day8 : Puzzle<Program>(8) {
     override fun parse(input: Sequence<String>): Program {
         return Program.parse(input)
     }
 
-    override fun solvePart1(input: Program): String {
-        return runUntilDuplicate(input).toString()
+    override fun solvePart1(input: Program): Int {
+        return runUntilDuplicate(input) ?: throw UnsolvableException()
     }
 
-    override fun solvePart2(input: Program): String {
-        return patchAndRunUntilHalt(input).toString()
+    override fun solvePart2(input: Program): Int {
+        return patchAndRunUntilHalt(input) ?: throw UnsolvableException()
     }
 
     private enum class Result {

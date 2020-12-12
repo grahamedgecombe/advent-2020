@@ -34,11 +34,11 @@ object Day6 : Puzzle<List<Day6.Group>>(6) {
         return groups
     }
 
-    override fun solvePart1(input: List<Group>): String {
-        return input.map(Group::unionSize).sum().toString()
+    override fun solvePart1(input: List<Group>): Int {
+        return input.map(Group::unionSize).sum()
     }
 
-    override fun solvePart2(input: List<Group>): String {
-        return input.map(Group::intersectionSize).sum().toString()
+    override fun solvePart2(input: List<Group>): Int {
+        return input.map(Group::intersectionSize).sum()
     }
 }

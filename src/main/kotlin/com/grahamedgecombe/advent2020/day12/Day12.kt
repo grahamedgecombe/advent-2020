@@ -71,7 +71,7 @@ object Day12 : Puzzle<List<Day12.Instruction>>(12) {
         return input.map(Instruction.Companion::parse).toList()
     }
 
-    override fun solvePart1(input: List<Instruction>): String {
+    override fun solvePart1(input: List<Instruction>): Int {
         var position = Vector(0, 0)
         var heading = 90
 
@@ -87,10 +87,10 @@ object Day12 : Puzzle<List<Day12.Instruction>>(12) {
             }
         }
 
-        return position.magnitude().toString()
+        return position.magnitude()
     }
 
-    override fun solvePart2(input: List<Instruction>): String {
+    override fun solvePart2(input: List<Instruction>): Int {
         var position = Vector(0, 0)
         var waypoint = Vector(10, 1)
 
@@ -106,6 +106,6 @@ object Day12 : Puzzle<List<Day12.Instruction>>(12) {
             }
         }
 
-        return position.magnitude().toString()
+        return position.magnitude()
     }
 }

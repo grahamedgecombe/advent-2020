@@ -51,16 +51,16 @@ object Day3 : Puzzle<Day3.Grid>(3) {
         return Grid.parse(input.toList())
     }
 
-    override fun solvePart1(input: Grid): String {
-        return input.countTrees(3, 1).toString()
+    override fun solvePart1(input: Grid): Long {
+        return input.countTrees(3, 1)
     }
 
-    override fun solvePart2(input: Grid): String {
+    override fun solvePart2(input: Grid): Long {
         var result = input.countTrees(1, 1)
         result *= input.countTrees(3, 1)
         result *= input.countTrees(5, 1)
         result *= input.countTrees(7, 1)
         result *= input.countTrees(1, 2)
-        return result.toString()
+        return result
     }
 }

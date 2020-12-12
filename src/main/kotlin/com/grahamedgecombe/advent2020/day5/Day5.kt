@@ -11,16 +11,16 @@ object Day5 : Puzzle<List<Int>>(5) {
         return input.map(::getSeat).toList()
     }
 
-    override fun solvePart1(input: List<Int>): String {
-        return input.maxOrNull()?.toString() ?: throw UnsolvableException()
+    override fun solvePart1(input: List<Int>): Int {
+        return input.maxOrNull() ?: throw UnsolvableException()
     }
 
-    override fun solvePart2(input: List<Int>): String {
+    override fun solvePart2(input: List<Int>): Int {
         val seats = input.toSet()
 
         for (seat in 1 until (ROWS * COLUMNS - 1)) { // exclude the first and last elements
             if (!seats.contains(seat) && seats.contains(seat - 1) && seats.contains(seat + 1)) {
-                return seat.toString()
+                return seat
             }
         }
 

@@ -10,6 +10,6 @@ abstract class Puzzle<T>(val number: Int) {
     }
 
     abstract fun parse(input: Sequence<String>): T
-    abstract fun solvePart1(input: T): String
-    open fun solvePart2(input: T): String? = null
+    abstract fun solvePart1(input: T): Any
+    open fun solvePart2(input: T): Any? = null
 }

@@ -10,7 +10,7 @@ object Day4Test {
 
     @Test
     fun testPart1() {
-        assertEquals("2", Day4.solvePart1(Day4.parse(sequenceOf(
+        assertEquals(2, Day4.solvePart1(Day4.parse(sequenceOf(
             "ecl:gry pid:860033327 eyr:2020 hcl:#fffffd",
             "byr:1937 iyr:2017 cid:147 hgt:183cm",
             "",
@@ -25,7 +25,7 @@ object Day4Test {
             "hcl:#cfa07d eyr:2025 pid:166559648",
             "iyr:2011 ecl:brn hgt:59in"
         ))))
-        assertEquals("170", Day4.solvePart1(PROD_INPUT))
+        assertEquals(170, Day4.solvePart1(PROD_INPUT))
     }
 
     @Test
@@ -48,7 +48,7 @@ object Day4Test {
         assertTrue(Day4.Passport.isFieldValid("pid", "000000001"))
         assertFalse(Day4.Passport.isFieldValid("pid", "0123456789"))
 
-        assertEquals("0", Day4.solvePart2(Day4.parse(sequenceOf(
+        assertEquals(0, Day4.solvePart2(Day4.parse(sequenceOf(
             "eyr:1972 cid:100",
             "hcl:#18171d ecl:amb hgt:170 pid:186cm iyr:2018 byr:1926",
             "",
@@ -64,7 +64,7 @@ object Day4Test {
             "pid:3556412378 byr:2007",
         ))))
 
-        assertEquals("4", Day4.solvePart2(Day4.parse(sequenceOf(
+        assertEquals(4, Day4.solvePart2(Day4.parse(sequenceOf(
             "pid:087499704 hgt:74in ecl:grn iyr:2012 eyr:2030 byr:1980",
             "hcl:#623a2f",
             "",
@@ -79,6 +79,6 @@ object Day4Test {
             "iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719",
         ))))
 
-        assertEquals("103", Day4.solvePart2(PROD_INPUT))
+        assertEquals(103, Day4.solvePart2(PROD_INPUT))
     }
 }

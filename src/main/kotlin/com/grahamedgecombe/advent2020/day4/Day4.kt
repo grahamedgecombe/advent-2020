@@ -87,11 +87,11 @@ object Day4 : Puzzle<List<Day4.Passport>>(4) {
         return passports
     }
 
-    override fun solvePart1(input: List<Passport>): String {
-        return input.count(Passport::isValidPart1).toString()
+    override fun solvePart1(input: List<Passport>): Int {
+        return input.count(Passport::isValidPart1)
     }
 
-    override fun solvePart2(input: List<Passport>): String {
-        return input.count(Passport::isValidPart2).toString()
+    override fun solvePart2(input: List<Passport>): Int {
+        return input.count(Passport::isValidPart2)
     }
 }

@@ -19,13 +19,13 @@ object Day8Test {
 
     @Test
     fun testPart1() {
-        assertEquals("5", Day8.solvePart1(TEST_INPUT))
-        assertEquals("1137", Day8.solvePart1(PROD_INPUT))
+        assertEquals(5, Day8.solvePart1(TEST_INPUT))
+        assertEquals(1137, Day8.solvePart1(PROD_INPUT))
     }
 
     @Test
     fun testPart2() {
-        assertEquals("8", Day8.solvePart2(TEST_INPUT))
-        assertEquals("1125", Day8.solvePart2(PROD_INPUT))
+        assertEquals(8, Day8.solvePart2(TEST_INPUT))
+        assertEquals(1125, Day8.solvePart2(PROD_INPUT))
     }
 }

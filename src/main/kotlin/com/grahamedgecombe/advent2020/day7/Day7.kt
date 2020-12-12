@@ -85,11 +85,11 @@ object Day7 : Puzzle<Day7.RuleSet>(7) {
         return RuleSet.parse(input)
     }
 
-    override fun solvePart1(input: RuleSet): String {
-        return input.countParents(SHINY_GOLD).toString()
+    override fun solvePart1(input: RuleSet): Int {
+        return input.countParents(SHINY_GOLD)
     }
 
-    override fun solvePart2(input: RuleSet): String {
-        return input.countChildren(SHINY_GOLD).toString()
+    override fun solvePart2(input: RuleSet): Int {
+        return input.countChildren(SHINY_GOLD)
     }
 }

@@ -8,12 +8,12 @@ object Day10 : Puzzle<Set<Int>>(10) {
         return input.map(String::toInt).toSet()
     }
 
-    override fun solvePart1(input: Set<Int>): String {
-        return countDifferences(input).toString()
+    override fun solvePart1(input: Set<Int>): Int {
+        return countDifferences(input)
     }
 
-    override fun solvePart2(input: Set<Int>): String {
-        return countCombinations(input).toString()
+    override fun solvePart2(input: Set<Int>): Long {
+        return countCombinations(input)
     }
 
     fun countDifferences(bag: Set<Int>): Int {

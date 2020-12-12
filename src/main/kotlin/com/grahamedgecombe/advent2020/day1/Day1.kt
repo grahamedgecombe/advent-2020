@@ -8,11 +8,11 @@ object Day1 : Puzzle<List<Int>>(1) {
         return input.map(String::toInt).toList()
     }
 
-    override fun solvePart1(input: List<Int>): String {
+    override fun solvePart1(input: List<Int>): Int {
         for ((i, a) in input.withIndex()) {
             for (b in input.slice(0 until i)) {
                 if (a + b == 2020) {
-                    return (a * b).toString()
+                    return a * b
                 }
             }
         }
@@ -20,12 +20,12 @@ object Day1 : Puzzle<List<Int>>(1) {
         throw UnsolvableException()
     }
 
-    override fun solvePart2(input: List<Int>): String {
+    override fun solvePart2(input: List<Int>): Int {
         for ((i, a) in input.withIndex()) {
             for ((j, b) in input.slice(0 until i).withIndex()) {
                 for (c in input.slice(0 until j)) {
                     if (a + b + c == 2020) {
-                        return (a * b * c).toString()
+                        return a * b * c
                     }
                 }
             }

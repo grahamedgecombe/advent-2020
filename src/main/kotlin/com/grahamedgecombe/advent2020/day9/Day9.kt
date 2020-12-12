@@ -12,13 +12,13 @@ object Day9 : Puzzle<List<Long>>(9) {
         return input.map(String::toLong).toList()
     }
 
-    override fun solvePart1(input: List<Long>): String {
-        return getFirstInvalidNumber(input, PREAMBLE)?.toString() ?: throw UnsolvableException()
+    override fun solvePart1(input: List<Long>): Long {
+        return getFirstInvalidNumber(input, PREAMBLE) ?: throw UnsolvableException()
     }
 
-    override fun solvePart2(input: List<Long>): String {
+    override fun solvePart2(input: List<Long>): Long {
         val invalidNumber = getFirstInvalidNumber(input, PREAMBLE) ?: throw UnsolvableException()
-        return getWeakness(input, invalidNumber)?.toString() ?: throw UnsolvableException()
+        return getWeakness(input, invalidNumber) ?: throw UnsolvableException()
     }
 
     fun getFirstInvalidNumber(numbers: List<Long>, preamble: Int): Long? {
