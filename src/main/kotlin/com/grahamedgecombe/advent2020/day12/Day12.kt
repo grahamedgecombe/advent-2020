@@ -40,6 +40,14 @@ object Day12 : Puzzle<List<Day12.Instruction>>(12) {
             return Vector(x + v.x, y + v.y)
         }
 
+        operator fun minus(v: Vector): Vector {
+            return Vector(x - v.x, y - v.y)
+        }
+
+        operator fun times(n: Int): Vector {
+            return Vector(x * n, y * n)
+        }
+
         fun rotate(angle: Int): Vector {
             var a = angle % 360
             if (a < 0) {
@@ -76,6 +84,25 @@ object Day12 : Puzzle<List<Day12.Instruction>>(12) {
                 Action.Left -> heading -= insn.value
                 Action.Right -> heading += insn.value
                 Action.Forward -> position += Vector(0, insn.value).rotate(heading)
+            }
+        }
+
+        return position.magnitude().toString()
+    }
+
+    override fun solvePart2(input: List<Instruction>): String {
+        var position = Vector(0, 0)
+        var waypoint = Vector(10, 1)
+
+        for (insn in input) {
+            when (insn.action) {
+                Action.North -> waypoint += Vector(0, insn.value)
+                Action.South -> waypoint += Vector(0, -insn.value)
+                Action.East -> waypoint += Vector(insn.value, 0)
+                Action.West -> waypoint += Vector(-insn.value, 0)
+                Action.Left -> waypoint = waypoint.rotate(-insn.value)
+                Action.Right -> waypoint = waypoint.rotate(insn.value)
+                Action.Forward -> position += waypoint * insn.value
             }
         }
 
