@@ -3,6 +3,7 @@ package com.grahamedgecombe.advent2020
 import com.grahamedgecombe.advent2020.day1.Day1
 import com.grahamedgecombe.advent2020.day10.Day10
 import com.grahamedgecombe.advent2020.day11.Day11
+import com.grahamedgecombe.advent2020.day12.Day12
 import com.grahamedgecombe.advent2020.day2.Day2
 import com.grahamedgecombe.advent2020.day3.Day3
 import com.grahamedgecombe.advent2020.day4.Day4
@@ -16,7 +17,7 @@ import kotlin.time.measureTimedValue
 
 @ExperimentalTime
 fun main() {
-    val puzzles = listOf<Puzzle<*>>(Day1, Day2, Day3, Day4, Day5, Day6, Day7, Day8, Day9, Day10, Day11)
+    val puzzles = listOf<Puzzle<*>>(Day1, Day2, Day3, Day4, Day5, Day6, Day7, Day8, Day9, Day10, Day11, Day12)
 
     for (puzzle in puzzles) {
         solve(puzzle)
