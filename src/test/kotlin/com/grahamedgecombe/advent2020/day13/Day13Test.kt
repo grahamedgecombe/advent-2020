@@ -15,4 +15,15 @@ object Day13Test {
         assertEquals(295, Day13.solvePart1(TEST_INPUT))
         assertEquals(171, Day13.solvePart1(PROD_INPUT))
     }
+
+    @Test
+    fun testPart2() {
+        assertEquals(1068781, Day13.solvePart2(TEST_INPUT))
+        assertEquals(3417, Day13.chineseRemainderTheorem(listOf(17, null, 13, 19)))
+        assertEquals(754018, Day13.chineseRemainderTheorem(listOf(67, 7, 59, 61)))
+        assertEquals(779210, Day13.chineseRemainderTheorem(listOf(67, null, 7, 59, 61)))
+        assertEquals(1261476, Day13.chineseRemainderTheorem(listOf(67, 7, null, 59, 61)))
+        assertEquals(1202161486, Day13.chineseRemainderTheorem(listOf(1789, 37, 47, 1889)))
+        assertEquals(539746751134958, Day13.solvePart2(PROD_INPUT))
+    }
 }
