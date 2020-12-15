@@ -11,6 +11,10 @@ object Day15 : Puzzle<List<Int>>(15) {
         return solve(input, 2020)
     }
 
+    override fun solvePart2(input: List<Int>): Int {
+        return solve(input, 30000000)
+    }
+
     private fun solve(input: List<Int>, turns: Int): Int {
         check(input.isNotEmpty())
 

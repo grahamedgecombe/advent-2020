@@ -17,4 +17,16 @@ object Day15Test {
         assertEquals(1836, Day15.solvePart1(listOf(3, 1, 2)))
         assertEquals(203, Day15.solvePart1(PROD_INPUT))
     }
+
+    @Test
+    fun testPart2() {
+        assertEquals(175594, Day15.solvePart2(listOf(0, 3, 6)))
+        assertEquals(2578, Day15.solvePart2(listOf(1, 3, 2)))
+        assertEquals(3544142, Day15.solvePart2(listOf(2, 1, 3)))
+        assertEquals(261214, Day15.solvePart2(listOf(1, 2, 3)))
+        assertEquals(6895259, Day15.solvePart2(listOf(2, 3, 1)))
+        assertEquals(18, Day15.solvePart2(listOf(3, 2, 1)))
+        assertEquals(362, Day15.solvePart2(listOf(3, 1, 2)))
+        assertEquals(9007186, Day15.solvePart2(PROD_INPUT))
+    }
 }
