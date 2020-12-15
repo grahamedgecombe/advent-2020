@@ -18,23 +18,20 @@ object Day15 : Puzzle<List<Int>>(15) {
     private fun solve(input: List<Int>, turns: Int): Int {
         check(input.isNotEmpty())
 
-        val history = mutableMapOf<Int, Pair<Int, Int?>>()
+        val history = IntArray(turns)
         var turn = 1
         var prevNumber = -1
 
         for (number in input) {
-            history[number] = Pair(turn++, history[number]?.first)
+            history[number] = turn++
             prevNumber = number
         }
 
         while (true) {
             val prevTurn = history[prevNumber]
 
-            val first = prevTurn?.first
-            val second = prevTurn?.second
-
-            val number = if (first != null && second != null) {
-                first - second
+            val number = if (prevTurn != 0) {
+                turn - 1 - prevTurn
             } else {
                 0
             }
@@ -43,7 +40,7 @@ object Day15 : Puzzle<List<Int>>(15) {
                 return number
             }
 
-            history[number] = Pair(turn++, history[number]?.first)
+            history[prevNumber] = turn++ - 1
             prevNumber = number
         }
     }
