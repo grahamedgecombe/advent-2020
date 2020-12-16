@@ -25,4 +25,10 @@ object Day16Test {
         assertEquals(71, Day16.solvePart1(TEST_INPUT))
         assertEquals(20013, Day16.solvePart1(PROD_INPUT))
     }
+
+    @Test
+    fun testPart2() {
+        assertEquals(listOf("row", "class", "seat"), TEST_INPUT.getFieldOrder().map(Day16.Field::name))
+        assertEquals(5977293343129, Day16.solvePart2(PROD_INPUT))
+    }
 }

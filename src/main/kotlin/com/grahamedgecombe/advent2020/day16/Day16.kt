@@ -1,6 +1,7 @@
 package com.grahamedgecombe.advent2020.day16
 
 import com.grahamedgecombe.advent2020.Puzzle
+import com.grahamedgecombe.advent2020.UnsolvableException
 
 object Day16 : Puzzle<Day16.Input>(16) {
     data class Field(val name: String, val range1: IntRange, val range2: IntRange) {
@@ -56,6 +57,76 @@ object Day16 : Puzzle<Day16.Input>(16) {
             return sum
         }
 
+        private fun isTicketValid(ticket: Ticket): Boolean {
+            for (value in ticket.values) {
+                if (!isValueValid(value)) {
+                    return false
+                }
+            }
+
+            return true
+        }
+
+        fun getDepartureProduct(): Long {
+            var product = 1L
+            for ((i, field) in getFieldOrder().withIndex()) {
+                if (field.name.startsWith("departure ")) {
+                    product *= ticket.values[i]
+                }
+            }
+            return product
+        }
+
+        private data class Key(val field: Field, val index: Int)
+
+        private fun isFieldValidForIndex(field: Field, tickets: List<Ticket>, index: Int, cache: MutableMap<Key, Boolean>): Boolean {
+            val key = Key(field, index)
+
+            val valid = cache[key]
+            if (valid != null) {
+                return valid
+            }
+
+            for (ticket in tickets) {
+                if (!field.validate(ticket.values[index])) {
+                    cache[key] = false
+                    return false
+                }
+            }
+
+            cache[key] = true
+            return true
+        }
+
+        fun getFieldOrder(): List<Field> {
+            return getFieldOrder(emptyList(), fields, nearbyTickets.filter(::isTicketValid), mutableMapOf())
+                ?: throw UnsolvableException()
+        }
+
+        private fun getFieldOrder(
+            assignedFields: List<Field>,
+            unassignedFields: List<Field>,
+            tickets: List<Ticket>,
+            cache: MutableMap<Key, Boolean>
+        ): List<Field>? {
+            if (unassignedFields.isEmpty()) {
+                return assignedFields
+            }
+
+            val index = assignedFields.size
+
+            for (field in unassignedFields) {
+                if (isFieldValidForIndex(field, tickets, index, cache)) {
+                    val solution = getFieldOrder(assignedFields.plus(field), unassignedFields.minus(field), tickets, cache)
+                    if (solution != null) {
+                        return solution
+                    }
+                }
+            }
+
+            return null
+        }
+
         companion object {
             fun parse(input: Sequence<String>): Input {
                 val it = input.iterator()
@@ -93,5 +164,9 @@ object Day16 : Puzzle<Day16.Input>(16) {
 
     override fun solvePart1(input: Input): Int {
         return input.getErrorRate()
+    }
+
+    override fun solvePart2(input: Input): Long {
+        return input.getDepartureProduct()
     }
 }
