@@ -16,4 +16,10 @@ object Day17Test {
         assertEquals(112, Day17.solvePart1(TEST_INPUT))
         assertEquals(348, Day17.solvePart1(PROD_INPUT))
     }
+
+    @Test
+    fun testPart2() {
+        assertEquals(848, Day17.solvePart2(TEST_INPUT))
+        assertEquals(2236, Day17.solvePart2(PROD_INPUT))
+    }
 }
