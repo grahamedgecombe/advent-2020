@@ -32,14 +32,20 @@ object Day18 : Puzzle<List<String>>(18) {
         }
     }
 
-    private fun parseExpr(tokens: TokenStream): Expr {
-        var expr = parseValue(tokens)
+    private fun parseExpr(tokens: TokenStream, part1: Boolean): Expr {
+        val parse = if (part1) {
+            ::parseFactor
+        } else {
+            ::parseTerm
+        }
 
-        while (tokens.peek() == "+" || tokens.peek() == "*") {
+        var expr = parse(tokens, part1)
+
+        while ((part1 && tokens.peek() == "+") || tokens.peek() == "*") {
             val op = tokens.consume()
             expr = when (op) {
-                "+" -> Expr.Add(expr, parseValue(tokens))
-                "*" -> Expr.Multiply(expr, parseValue(tokens))
+                "+" -> Expr.Add(expr, parse(tokens, part1))
+                "*" -> Expr.Multiply(expr, parse(tokens, part1))
                 else -> throw AssertionError()
             }
         }
@@ -47,7 +53,20 @@ object Day18 : Puzzle<List<String>>(18) {
         return expr
     }
 
-    private fun parseValue(tokens: TokenStream): Expr {
+    private fun parseTerm(tokens: TokenStream, part1: Boolean): Expr {
+        check(!part1)
+
+        var expr = parseFactor(tokens, part1)
+
+        while (tokens.peek() == "+") {
+            tokens.consume()
+            expr = Expr.Add(expr, parseFactor(tokens, part1))
+        }
+
+        return expr
+    }
+
+    private fun parseFactor(tokens: TokenStream, part1: Boolean): Expr {
         val token = tokens.consume()
         check(token != null)
 
@@ -57,15 +76,15 @@ object Day18 : Puzzle<List<String>>(18) {
         }
 
         check(token == "(")
-        val expr = parseExpr(tokens)
+        val expr = parseExpr(tokens, part1)
         check(tokens.consume() == ")")
 
         return expr
     }
 
-    private fun parse(s: String): Expr {
+    private fun parse(s: String, part1: Boolean): Expr {
         val tokens = TokenStream(s)
-        val expr = parseExpr(tokens)
+        val expr = parseExpr(tokens, part1)
         check(tokens.peek() == null)
         return expr
     }
@@ -79,7 +98,11 @@ object Day18 : Puzzle<List<String>>(18) {
     }
 
     fun evaluatePart1(s: String): Long {
-        return evaluate(parse(s))
+        return evaluate(parse(s, true))
+    }
+
+    fun evaluatePart2(s: String): Long {
+        return evaluate(parse(s, false))
     }
 
     override fun parse(input: Sequence<String>): List<String> {
@@ -88,5 +111,9 @@ object Day18 : Puzzle<List<String>>(18) {
 
     override fun solvePart1(input: List<String>): Long {
         return input.map(::evaluatePart1).sum()
+    }
+
+    override fun solvePart2(input: List<String>): Long {
+        return input.map(::evaluatePart2).sum()
     }
 }
