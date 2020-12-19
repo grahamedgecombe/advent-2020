@@ -29,16 +29,81 @@ object Day19 : Puzzle<Day19.Input>(19) {
     }
 
     class Input(private val rules: Map<Int, Rule>, private val messages: List<String>) {
-        fun countMatches(): Int {
-            return messages.count(::matches)
+        fun countMatchesPart1(): Int {
+            return messages.count(::matchesPart1)
         }
 
-        private fun matches(s: String): Boolean {
-            return matches(s, 0, rules[0] ?: throw UnsolvableException()) == s.length
+        fun countMatchesPart2(): Int {
+            return messages.count(::matchesPart2)
+        }
+
+        private fun matchesPart1(s: String): Boolean {
+            return matches(s, 0, 0) == s.length
+        }
+
+        private fun matchesPart2(s: String): Boolean {
+            // 0: 8 11
+            // 8: 42 | 42 8
+            // 11: 42 31 | 42 11 31
+            //
+            // 42+ 42{n} 31{n} where n >= 1
+
+            // try all combinations of matching 42 at least once
+            var outerIndex = 0
+            while (true) {
+                val outerN = matches(s, outerIndex, 42)
+                if (outerN == 0) {
+                    break
+                }
+                outerIndex += outerN
+
+                // then count how many times 42 matches (at least once)
+                var index = outerIndex
+                var matches42 = 0
+                while (true) {
+                    val n = matches(s, index, 42)
+                    if (n == 0) {
+                        break
+                    }
+                    index += n
+                    matches42++
+                }
+
+                if (matches42 == 0) {
+                    continue
+                }
+
+                // then ensure 31 matches exactly the same number of times
+                var matches31 = 0
+                for (i in 0 until matches42) {
+                    val n = matches(s, index, 31)
+                    if (n == 0) {
+                        break
+                    }
+                    index += n
+                    matches31++
+                }
+
+                if (matches42 != matches31) {
+                    continue
+                }
+
+                // then match EOF
+                if (index == s.length) {
+                    return true
+                }
+            }
+
+            return false
         }
 
         // returns 0 if no match, otherwise returns the length of the match
-        private fun matches(s: String, index: Int, rule: Rule): Int {
+        private fun matches(s: String, index: Int, ruleId: Int): Int {
+            if (index >= s.length) {
+                return 0
+            }
+
+            val rule = rules[ruleId] ?: throw UnsolvableException()
             when (rule) {
                 is Rule.Character -> {
                     return if (s[index] == rule.char) {
@@ -63,9 +128,7 @@ object Day19 : Puzzle<Day19.Input>(19) {
             var len = 0
 
             for (ruleId in sequence) {
-                val rule = rules[ruleId] ?: throw UnsolvableException()
-
-                val n = matches(s, index + len, rule)
+                val n = matches(s, index + len, ruleId)
                 if (n == 0) {
                     return 0
                 }
@@ -98,6 +161,10 @@ object Day19 : Puzzle<Day19.Input>(19) {
     }
 
     override fun solvePart1(input: Input): Int {
-        return input.countMatches()
+        return input.countMatchesPart1()
+    }
+
+    override fun solvePart2(input: Input): Int {
+        return input.countMatchesPart2()
     }
 }
