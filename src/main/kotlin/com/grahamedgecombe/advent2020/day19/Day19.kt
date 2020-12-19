@@ -48,53 +48,31 @@ object Day19 : Puzzle<Day19.Input>(19) {
             //
             // 42+ 42{n} 31{n} where n >= 1
 
-            // try all combinations of matching 42 at least once
-            var outerIndex = 0
+            // count the number of times 42 matches
+            var index = 0
+            var matches42 = 0
             while (true) {
-                val outerN = matches(s, outerIndex, 42)
-                if (outerN == 0) {
+                val n = matches(s, index, 42)
+                if (n == 0) {
                     break
                 }
-                outerIndex += outerN
-
-                // then count how many times 42 matches (at least once)
-                var index = outerIndex
-                var matches42 = 0
-                while (true) {
-                    val n = matches(s, index, 42)
-                    if (n == 0) {
-                        break
-                    }
-                    index += n
-                    matches42++
-                }
-
-                if (matches42 == 0) {
-                    continue
-                }
-
-                // then ensure 31 matches exactly the same number of times
-                var matches31 = 0
-                for (i in 0 until matches42) {
-                    val n = matches(s, index, 31)
-                    if (n == 0) {
-                        break
-                    }
-                    index += n
-                    matches31++
-                }
-
-                if (matches42 != matches31) {
-                    continue
-                }
-
-                // then match EOF
-                if (index == s.length) {
-                    return true
-                }
+                index += n
+                matches42++
             }
 
-            return false
+            // count the number of times 31 matches
+            var matches31 = 0
+            while (true) {
+                val n = matches(s, index, 31)
+                if (n == 0) {
+                    break
+                }
+                index += n
+                matches31++
+            }
+
+            // we must have matched 42 at least once per 31, seen at least one 31, and be at the end of the input
+            return matches31 in 1 until matches42 && index == s.length
         }
 
         // returns 0 if no match, otherwise returns the length of the match
