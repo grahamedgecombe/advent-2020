@@ -12,11 +12,19 @@ object Day20 : Puzzle<List<Day20.Tile>>(20) {
                 require(x in 0 until width && y in 0 until height)
                 return pixels[y * width + x]
             }
+
+            override fun countSetPixels(): Int {
+                return pixels.cardinality()
+            }
         }
 
         class Flipped(private val tile: Tile) : Tile(tile.id, tile.width, tile.height) {
             override fun get(x: Int, y: Int): Boolean {
                 return tile.get(width - x - 1, y)
+            }
+
+            override fun countSetPixels(): Int {
+                return tile.countSetPixels()
             }
         }
 
@@ -24,9 +32,14 @@ object Day20 : Puzzle<List<Day20.Tile>>(20) {
             override fun get(x: Int, y: Int): Boolean {
                 return tile.get(height - y - 1, x)
             }
+
+            override fun countSetPixels(): Int {
+                return tile.countSetPixels()
+            }
         }
 
         abstract fun get(x: Int, y: Int): Boolean
+        abstract fun countSetPixels(): Int
 
         fun getTransformations(): List<Tile> {
             val transformations = mutableListOf(this)
@@ -66,7 +79,49 @@ object Day20 : Puzzle<List<Day20.Tile>>(20) {
             return true
         }
 
+        fun getRoughness(): Int {
+            for (transformation in getTransformations()) {
+                val matches = transformation.countMatches(SEA_MONSTER)
+                if (matches != 0) {
+                    return countSetPixels() - matches * SEA_MONSTER.countSetPixels()
+                }
+            }
+
+            throw UnsolvableException()
+        }
+
+        private fun countMatches(pattern: Tile): Int {
+            var matches = 0
+
+            for (x in 0 until (width - pattern.width)) {
+                for (y in 0 until (height - pattern.height)) {
+                    var match = true
+
+                    next@for (dx in 0 until pattern.width) {
+                        for (dy in 0 until pattern.height) {
+                            if (pattern.get(dx, dy) && !get(x + dx, y + dy)) {
+                                match = false
+                                break@next
+                            }
+                        }
+                    }
+
+                    if (match) {
+                        matches++
+                    }
+                }
+            }
+
+            return matches
+        }
+
         companion object {
+            private val SEA_MONSTER = parse(0, listOf(
+                "..................#.",
+                "#....##....##....###",
+                ".#..#..#..#..#..#...",
+            ))
+
             fun parse(id: Int, lines: List<String>): Tile {
                 require(lines.isNotEmpty())
 
@@ -142,6 +197,31 @@ object Day20 : Puzzle<List<Day20.Tile>>(20) {
             check(tl != null && tr != null && bl != null && br != null)
             return tl.id.toLong() * tr.id.toLong() * bl.id.toLong() * br.id.toLong()
         }
+
+        fun toSingleTile(): Tile {
+            val first = get(0, 0)
+            check(first != null && first.width == first.height)
+
+            val totalSize = this.size * (first.width - 2)
+            val pixels = BitSet(totalSize * totalSize)
+
+            for (gridY in 0 until this.size) {
+                for (gridX in 0 until this.size) {
+                    val tile = get(gridX, gridY)
+                    check(tile != null && tile.width == first.width && tile.height == first.height)
+
+                    for (pixelY in 1 until (tile.height - 1)) {
+                        for (pixelX in 1 until (tile.width - 1)) {
+                            val y = gridY * (tile.height - 2) + (pixelY - 1)
+                            val x = gridX * (tile.width - 2) + (pixelX - 1)
+                            pixels.set(y * totalSize + x, tile.get(pixelX, pixelY))
+                        }
+                    }
+                }
+            }
+
+            return Tile.Base(0, totalSize, totalSize, pixels)
+        }
     }
 
     private val ID_REGEX = Regex("Tile (\\d+):")
@@ -215,5 +295,9 @@ object Day20 : Puzzle<List<Day20.Tile>>(20) {
 
     override fun solvePart1(input: List<Tile>): Long {
         return arrange(input).getCornerProduct()
+    }
+
+    override fun solvePart2(input: List<Tile>): Int {
+        return arrange(input).toSingleTile().getRoughness()
     }
 }

@@ -118,4 +118,10 @@ Tile 3079:
         assertEquals(20899048083289, Day20.solvePart1(TEST_INPUT))
         assertEquals(27798062994017, Day20.solvePart1(PROD_INPUT))
     }
+
+    @Test
+    fun testPart2() {
+        assertEquals(273, Day20.solvePart2(TEST_INPUT))
+        assertEquals(2366, Day20.solvePart2(PROD_INPUT))
+    }
 }
