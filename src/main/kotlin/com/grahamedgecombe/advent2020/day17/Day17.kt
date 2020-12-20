@@ -108,7 +108,7 @@ object Day17 : Puzzle<Day17.Grid>(17) {
         return Grid.parse(input.toList())
     }
 
-    override fun solvePart1(input: Grid): Any {
+    override fun solvePart1(input: Grid): Int {
         var grid = input
         for (i in 0 until 6) {
             grid = grid.nextPart1()
@@ -116,7 +116,7 @@ object Day17 : Puzzle<Day17.Grid>(17) {
         return grid.countActive()
     }
 
-    override fun solvePart2(input: Grid): Any {
+    override fun solvePart2(input: Grid): Int {
         var grid = input
         for (i in 0 until 6) {
             grid = grid.nextPart2()
