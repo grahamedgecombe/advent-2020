@@ -52,4 +52,26 @@ object Day21 : Puzzle<List<Day21.Food>>(21) {
             input.count { it.ingredients.contains(ingredient) }
         }.sum()
     }
+
+    override fun solvePart2(input: List<Food>): Any {
+        val allergenToIngredients = getAllergenToIngredients(input).toMutableMap()
+        val allergenToIngredient = mutableMapOf<String, String>()
+
+        next@while (allergenToIngredient.size < allergenToIngredients.size) {
+            for ((allergen, ingredients) in allergenToIngredients) {
+                val ingredient = ingredients.singleOrNull()
+                if (ingredient != null) {
+                    allergenToIngredient[allergen] = ingredient
+                    allergenToIngredients.replaceAll { _, value -> value - ingredient }
+                    continue@next
+                }
+            }
+
+            throw UnsolvableException()
+        }
+
+        return allergenToIngredient.toList()
+                .sortedBy { it.first }
+                .joinToString(",") { it.second }
+    }
 }
