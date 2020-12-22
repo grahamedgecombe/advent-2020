@@ -53,7 +53,7 @@ object Day21 : Puzzle<List<Day21.Food>>(21) {
         }.sum()
     }
 
-    override fun solvePart2(input: List<Food>): Any {
+    override fun solvePart2(input: List<Food>): String {
         val allergenToIngredients = getAllergenToIngredients(input).toMutableMap()
         val allergenToIngredient = mutableMapOf<String, String>()
 
