@@ -2,6 +2,8 @@ package com.grahamedgecombe.advent2020.day23
 
 import com.grahamedgecombe.advent2020.Puzzle
 import com.grahamedgecombe.advent2020.UnsolvableException
+import kotlin.math.max
+import kotlin.math.min
 
 object Day23 : Puzzle<List<Int>>(23) {
     override fun parse(input: Sequence<String>): List<Int> {
@@ -12,7 +14,7 @@ object Day23 : Puzzle<List<Int>>(23) {
         var previous: Node? = null
         var next: Node? = null
 
-        fun getSolution(): Int {
+        fun getSolutionPart1(): Int {
             var solution = 0
             var node = next!!
             do {
@@ -73,29 +75,66 @@ object Day23 : Puzzle<List<Int>>(23) {
             }
         }
 
-        fun getSolution(): Int {
+        fun getSolutionPart1(): Int {
             val one = nodes[1] ?: throw UnsolvableException()
-            return one.getSolution()
+            return one.getSolutionPart1()
+        }
+
+        fun getSolutionPart2(): Long {
+            val one = nodes[1] ?: throw UnsolvableException()
+
+            val a = one.next ?: throw UnsolvableException()
+            val b = a.next ?: throw UnsolvableException()
+
+            return a.value.toLong() * b.value.toLong()
         }
 
         companion object {
-            fun create(input: List<Int>): Game {
-                val head = Node(input.first())
+            fun createPart1(input: List<Int>): Game {
+                require(input.isNotEmpty())
+                return create(input.asSequence(), input.maxOrNull()!! + 1)
+            }
 
-                val min = input.minOrNull()!!
-                val max = input.maxOrNull()!!
+            fun createPart2(input: List<Int>): Game {
+                require(input.isNotEmpty())
 
-                val nodes = arrayOfNulls<Node?>(max + 1)
+                return create(sequence {
+                    var max = Int.MIN_VALUE
+                    var size = 0
+
+                    for (value in input) {
+                        yield(value)
+
+                        max = max(max, value)
+                        size++
+                    }
+
+                    for (i in 0 until (1000000 - size)) {
+                        yield(max + i + 1)
+                    }
+                }, input.maxOrNull()!! + 1000001 - input.size)
+            }
+
+            private fun create(sequence: Sequence<Int>, size: Int): Game {
+                val head = Node(sequence.first())
+
+                val nodes = arrayOfNulls<Node?>(size)
                 nodes[head.value] = head
+
+                var min = head.value
+                var max = head.value
 
                 var previous = head
 
-                for (value in input.slice(1 until input.size)) {
+                for (value in sequence.drop(1)) {
                     val current = Node(value)
                     nodes[value] = current
 
                     previous.next = current
                     current.previous = previous
+
+                    min = min(min, value)
+                    max = max(max, value)
 
                     previous = current
                 }
@@ -109,8 +148,14 @@ object Day23 : Puzzle<List<Int>>(23) {
     }
 
     override fun solvePart1(input: List<Int>): Int {
-        val game = Game.create(input)
+        val game = Game.createPart1(input)
         game.run(100)
-        return game.getSolution()
+        return game.getSolutionPart1()
+    }
+
+    override fun solvePart2(input: List<Int>): Long {
+        val game = Game.createPart2(input)
+        game.run(10000000)
+        return game.getSolutionPart2()
     }
 }
