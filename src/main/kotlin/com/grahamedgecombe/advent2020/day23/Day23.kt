@@ -11,7 +11,6 @@ object Day23 : Puzzle<List<Int>>(23) {
     }
 
     private class Node(val value: Int) {
-        var previous: Node? = null
         var next: Node? = null
 
         fun getSolutionPart1(): Int {
@@ -61,15 +60,11 @@ object Day23 : Puzzle<List<Int>>(23) {
                 val cup3 = cup2.next!!
 
                 current.next = cup3.next
-                cup3.next!!.previous = current
 
                 val destination = getDestination(current, cup1, cup2, cup3)
 
-                destination.next!!.previous = cup3
                 cup3.next = destination.next
-
                 destination.next = cup1
-                cup1.previous = destination
 
                 current = current.next!!
             }
@@ -131,7 +126,6 @@ object Day23 : Puzzle<List<Int>>(23) {
                     nodes[value] = current
 
                     previous.next = current
-                    current.previous = previous
 
                     min = min(min, value)
                     max = max(max, value)
@@ -140,7 +134,6 @@ object Day23 : Puzzle<List<Int>>(23) {
                 }
 
                 previous.next = head
-                head.previous = previous
 
                 return Game(head, nodes, min, max)
             }
