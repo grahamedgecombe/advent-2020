@@ -32,16 +32,16 @@ object Day23 : Puzzle<List<Int>>(23) {
         private val max: Int
     ) {
         private fun getDestination(current: Node, cup1: Node, cup2: Node, cup3: Node): Node {
-            for (j in current.value - 1 downTo min) {
-                val node = nodes[j]
+            for (i in current.value - 1 downTo min) {
+                val node = nodes[i]
                 if (node == null || node == cup1 || node == cup2 || node == cup3) {
                     continue
                 }
                 return node
             }
 
-            for (j in max downTo current.value + 1) {
-                val node = nodes[j]
+            for (i in max downTo current.value + 1) {
+                val node = nodes[i]
                 if (node == null || node == cup1 || node == cup2 || node == cup3) {
                     continue
                 }
