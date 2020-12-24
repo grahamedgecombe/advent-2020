@@ -35,6 +35,14 @@ object Day24 : Puzzle<List<List<Day24.Direction>>>(24) {
     }
 
     data class Position(val x: Int, val y: Int) {
+        fun minimum(position: Position): Position {
+            return Position(min(x, position.x), min(y, position.y))
+        }
+
+        fun maximum(position: Position): Position {
+            return Position(max(x, position.x), max(y, position.y))
+        }
+
         fun add(direction: Direction): Position {
             // odd-r (see https://www.redblobgames.com/grids/hexagons/)
             val even = y % 2 == 0
@@ -58,18 +66,55 @@ object Day24 : Puzzle<List<List<Day24.Direction>>>(24) {
     }
 
     class Grid(
+        private val min: Position,
+        private val max: Position,
         private val blackTiles: Set<Position>
     ) {
         fun countBlackTiles(): Int {
             return blackTiles.size
         }
 
+        fun next(): Grid {
+            val nextBlackTiles = mutableSetOf<Position>()
+
+            for (y in min.y - 1..max.y + 1) {
+                for (x in min.x - 1..max.x + 1) {
+                    val position = Position(x, y)
+
+                    var neighbours = 0
+                    for (direction in Direction.values()) {
+                        if (blackTiles.contains(position.add(direction))) {
+                            neighbours++
+                        }
+                    }
+
+                    val black = blackTiles.contains(position)
+                    val nextBlack = when {
+                        black && (neighbours == 0 || neighbours > 2) -> false
+                        !black && neighbours == 2 -> true
+                        else -> black
+                    }
+
+                    if (nextBlack) {
+                        nextBlackTiles += position
+                    }
+                }
+            }
+
+            return Grid(min.add(-1, -1), max.add(1, 1), nextBlackTiles)
+        }
+
         companion object {
             fun create(input: List<List<Direction>>): Grid {
+                var min = Position.ZERO
+                var max = Position.ZERO
                 val blackTiles = mutableSetOf<Position>()
 
                 for (directions in input) {
                     val position = getPosition(directions)
+
+                    min = min.minimum(position)
+                    max = max.maximum(position)
 
                     if (blackTiles.contains(position)) {
                         blackTiles -= position
@@ -78,7 +123,7 @@ object Day24 : Puzzle<List<List<Day24.Direction>>>(24) {
                     }
                 }
 
-                return Grid(blackTiles)
+                return Grid(min, max, blackTiles)
             }
         }
     }
@@ -119,5 +164,13 @@ object Day24 : Puzzle<List<List<Day24.Direction>>>(24) {
 
     override fun solvePart1(input: List<List<Direction>>): Int {
         return Grid.create(input).countBlackTiles()
+    }
+
+    override fun solvePart2(input: List<List<Direction>>): Int {
+        var grid = Grid.create(input)
+        for (i in 0 until 100) {
+            grid = grid.next()
+        }
+        return grid.countBlackTiles()
     }
 }
