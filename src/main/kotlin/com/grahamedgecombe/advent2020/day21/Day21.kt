@@ -71,7 +71,7 @@ object Day21 : Puzzle<List<Day21.Food>>(21) {
         }
 
         return allergenToIngredient.toList()
-                .sortedBy { it.first }
-                .joinToString(",") { it.second }
+            .sortedBy { it.first }
+            .joinToString(",") { it.second }
     }
 }
