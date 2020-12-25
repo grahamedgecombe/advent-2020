@@ -11,7 +11,7 @@ object Day19 : Puzzle<Day19.Input>(19) {
         companion object {
             fun parse(s: String): Pair<Int, Rule> {
                 val parts = s.split(':', limit = 2)
-                check(parts.size == 2)
+                require(parts.size == 2)
 
                 val id = parts[0].toInt()
                 val rule = parts[1].trim()
@@ -122,7 +122,7 @@ object Day19 : Puzzle<Day19.Input>(19) {
 
         val rules = mutableMapOf<Int, Rule>()
         while (true) {
-            check(it.hasNext())
+            require(it.hasNext())
 
             val s = it.next()
             if (s.isEmpty()) {

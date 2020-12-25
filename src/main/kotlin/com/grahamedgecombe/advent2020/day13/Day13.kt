@@ -9,7 +9,7 @@ object Day13 : Puzzle<Day13.Timetable>(13) {
 
     override fun parse(input: Sequence<String>): Timetable {
         val lines = input.toList()
-        check(lines.size == 2)
+        require(lines.size == 2)
 
         val firstTimestamp = lines[0].toLong()
         val ids = lines[1].split(",").map { id ->
@@ -63,7 +63,7 @@ object Day13 : Puzzle<Day13.Timetable>(13) {
         // Several Equations" at https://crypto.stanford.edu/pbc/notes/numbertheory/crt.html
 
         // Divisors must be pairwise coprime for the CRT to work
-        checkPairwiseCoprime(buses.filterNotNull())
+        requirePairwiseCoprime(buses.filterNotNull())
 
         val M = buses.filterNotNull().reduce(Long::times)
 
@@ -85,7 +85,7 @@ object Day13 : Puzzle<Day13.Timetable>(13) {
         return x
     }
 
-    private fun checkPairwiseCoprime(buses: List<Long>) {
+    private fun requirePairwiseCoprime(buses: List<Long>) {
         for ((i, v) in buses.withIndex()) {
             for (j in 0 until i) {
                 if (gcd(v, buses[j]) != 1L) {

@@ -22,7 +22,7 @@ object Day9 : Puzzle<List<Long>>(9) {
     }
 
     fun getFirstInvalidNumber(numbers: List<Long>, preamble: Int): Long? {
-        check(numbers.size >= preamble)
+        require(numbers.size >= preamble)
 
         for (i in preamble until numbers.size) {
             val n = numbers[i]

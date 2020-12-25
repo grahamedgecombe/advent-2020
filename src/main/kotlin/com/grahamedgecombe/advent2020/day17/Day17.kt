@@ -83,7 +83,7 @@ object Day17 : Puzzle<Day17.Grid>(17) {
 
         companion object {
             fun parse(input: List<String>): Grid {
-                check(input.isNotEmpty())
+                require(input.isNotEmpty())
 
                 val width = input.first().length
                 val height = input.size

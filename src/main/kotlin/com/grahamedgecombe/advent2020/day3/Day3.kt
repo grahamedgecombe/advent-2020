@@ -29,7 +29,7 @@ object Day3 : Puzzle<Day3.Grid>(3) {
 
         companion object {
             fun parse(lines: List<String>): Grid {
-                check(lines.isNotEmpty())
+                require(lines.isNotEmpty())
 
                 val width = lines.first().length
                 val height = lines.size

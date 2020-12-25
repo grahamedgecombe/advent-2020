@@ -25,7 +25,7 @@ object Day12 : Puzzle<List<Day12.Instruction>>(12) {
     data class Instruction(val action: Action, val value: Int) {
         companion object {
             fun parse(s: String): Instruction {
-                check(s.isNotEmpty())
+                require(s.isNotEmpty())
 
                 val action = Action.fromChar(s.first()) ?: throw IllegalArgumentException()
                 val value = s.substring(1).toInt()

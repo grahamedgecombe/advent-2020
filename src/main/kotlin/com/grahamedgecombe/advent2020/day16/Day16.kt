@@ -140,13 +140,13 @@ object Day16 : Puzzle<Day16.Input>(16) {
                     fields += Field.parse(s)
                 }
 
-                check(it.hasNext() && it.next() == "your ticket:")
-                check(it.hasNext())
+                require(it.hasNext() && it.next() == "your ticket:")
+                require(it.hasNext())
 
                 val ticket = Ticket.parse(it.next())
 
-                check(it.hasNext() && it.next() == "")
-                check(it.hasNext() && it.next() == "nearby tickets:")
+                require(it.hasNext() && it.next() == "")
+                require(it.hasNext() && it.next() == "nearby tickets:")
 
                 val nearbyTickets = mutableListOf<Ticket>()
                 while (it.hasNext()) {

@@ -68,16 +68,16 @@ object Day18 : Puzzle<List<String>>(18) {
 
     private fun parseFactor(tokens: TokenStream, part1: Boolean): Expr {
         val token = tokens.consume()
-        check(token != null)
+        require(token != null)
 
         val value = token.toLongOrNull()
         if (value != null) {
             return Expr.Literal(value)
         }
 
-        check(token == "(")
+        require(token == "(")
         val expr = parseExpr(tokens, part1)
-        check(tokens.consume() == ")")
+        require(tokens.consume() == ")")
 
         return expr
     }
@@ -85,7 +85,7 @@ object Day18 : Puzzle<List<String>>(18) {
     private fun parse(s: String, part1: Boolean): Expr {
         val tokens = TokenStream(s)
         val expr = parseExpr(tokens, part1)
-        check(tokens.peek() == null)
+        require(tokens.peek() == null)
         return expr
     }
 

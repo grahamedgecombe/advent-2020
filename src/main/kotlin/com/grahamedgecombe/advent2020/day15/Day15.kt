@@ -16,7 +16,7 @@ object Day15 : Puzzle<List<Int>>(15) {
     }
 
     private fun solve(input: List<Int>, turns: Int): Int {
-        check(input.isNotEmpty())
+        require(input.isNotEmpty())
 
         val history = IntArray(turns)
         var turn = 1

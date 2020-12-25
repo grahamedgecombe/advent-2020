@@ -140,7 +140,7 @@ object Day11 : Puzzle<Day11.Grid>(11) {
             private const val OCCUPIED = '#'
 
             fun parse(input: List<String>): Grid {
-                check(input.isNotEmpty())
+                require(input.isNotEmpty())
 
                 val height = input.size
                 val width = input.first().length
@@ -148,10 +148,10 @@ object Day11 : Puzzle<Day11.Grid>(11) {
                 val chars = CharArray(width * height)
 
                 for ((y, line) in input.withIndex()) {
-                    check(line.length == width)
+                    require(line.length == width)
 
                     for ((x, char) in line.withIndex()) {
-                        check(char == FLOOR || char == EMPTY || char == OCCUPIED)
+                        require(char == FLOOR || char == EMPTY || char == OCCUPIED)
 
                         val index = y * width + x
                         chars[index] = char
